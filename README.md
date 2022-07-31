@@ -2,7 +2,7 @@
 
 These folders are what I have done on each of the days of the python course I have taken
 
-  Day 1: Basic information, no needed to take notes
+  Day 1: Basic information, no notes were required
   
   Day 2: strings and conversions
 
