@@ -22,11 +22,12 @@ from pathlib import Path
 #   select one
 #   delete that category
 # end
-def opening():
-    print("Welcome to the RECIPE BOOK!\n---------------------------")
 
+def opening():
     recipePath = os.getcwd()
     recipePath = Path(recipePath,"DAY_6","PROYECT_RECIPE_BOOK","Recetas")
+    os.system("cls")
+    print("---------------------------\nWelcome to the RECIPE BOOK!\n---------------------------")
     print(f"The recipe in in {recipePath}")
 
     total = 0
@@ -36,8 +37,8 @@ def opening():
     return recipePath
 
 def ask_option():
-    print("\t1. READ RECIPE\n\t2. WRITE RECIPE\n\t3. CREATE CATEGORY\n\t4. DELETE RECIPE\n\t5. DELETE CATEGORY\n\t6. EXIT")
-    option = input("Option: ")
+    print("   1. READ RECIPE\n   2. WRITE RECIPE\n   3. CREATE CATEGORY\n   4. DELETE RECIPE\n   5. DELETE CATEGORY\n   6. EXIT")
+    option = input(" Option: ")
     option = int(option)
     os.system("cls")
     return option
@@ -59,22 +60,27 @@ def read_recipe(recipePath):
     category = input("Choose a category: ")
     newPath = Path(recipePath,category)
 
-    for i in Path(newPath).glob("*.txt"):
-        #print(os.path.basename(i).stem)
-        print(i.stem)
-
-    recipe = input("Choose a recipe: ")
-    recipe = recipe + ".txt"
-    recipe = Path(newPath,recipe)
-
-    if not recipe.exists():
-        print("File not found")
-        print("--------------------")
-    else:
+    valid = exists_category(newPath)
+    if valid == False:
         os.system("cls")
-        text = open(recipe)
-        print(recipe.read_text())
-        print("--------------------")
+        print("Category not found...\nBack to the menu\n--------------------")
+    else:
+        for i in Path(newPath).glob("*.txt"):
+            #print(os.path.basename(i).stem)
+            print(i.stem)
+
+        recipe = input("Choose a recipe: ")
+        recipe = recipe + ".txt"
+        recipe = Path(newPath,recipe)
+
+        if not recipe.exists():
+            print("File not found")
+            print("--------------------")
+        else:
+            os.system("cls")
+            text = open(recipe)
+            print(recipe.read_text())
+            print("--------------------")
     
 def write_recipe(recipePath):
     show_categories(recipePath)
@@ -84,7 +90,15 @@ def write_recipe(recipePath):
     valid = exists_category(newPath)
 
     if valid == False:
-        print("nop")
+        print("Category not found")
+        answer = input("Do you want to create a new Category? (y/n) ")
+
+        if answer == "y":
+            os.system("cls") 
+            create_category(recipePath)
+        else:
+            os.system("cls")
+            print("Back to the menu\n--------------------")
     else:
         recipe = input("Name of the new recipe? ")
         recipe = recipe +".txt"
@@ -100,7 +114,8 @@ def create_category(recipePath):
     newCategory = input("Name of the new category? ")
     newCategory = Path(recipePath,newCategory)
     os.makedirs(newCategory)
-    print("New Category created")
+    os.system("cls")
+    print("New Category created\n--------------------")
 
 def delete_recipe(recipePath):
     show_categories(recipePath)
@@ -113,12 +128,12 @@ def delete_recipe(recipePath):
     recipe = input("Choose a recipe: ")
     recipe = recipe + ".txt"
     recipe = Path(newPath,recipe)
-
+    os.system("cls")
     if not recipe.exists():
-        print("File not found")
-        print("--------------------")
+        print("File not found\n--------------------")
     else:
-        print("Recipe deleted")
+        os.remove(recipe)
+        print("Recipe deleted\n--------------------")
 
 def delete_category(recipePath):
     show_categories(recipePath)
@@ -126,8 +141,6 @@ def delete_category(recipePath):
     category = Path(recipePath, category)
 
     os.rmdir(category)
-
-
 
 #---- BEGIN ----
 
