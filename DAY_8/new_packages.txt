@@ -1,0 +1,6 @@
+there are many python packages that help you to do a specific thing
+
+First you have to install the package you want:
+ - PyPi: it's a repository with a big amount of python packages 
+
+ - when you find the package you wanted, pip install <package name>
