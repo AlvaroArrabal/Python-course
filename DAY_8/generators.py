@@ -1,6 +1,3 @@
-from re import X
-
-
 def my_function():
     x = 1
     yield x             # wait here until the program really needs it. Better for memory
