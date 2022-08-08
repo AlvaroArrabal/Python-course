@@ -16,4 +16,6 @@ These folders are what I have done on each of the days of the python course I ha
 
   Day 7: Objects, inheritance, polymorphism, special methods
 
+  Day 8: Error management, packages, decorators, generators
+
 Each day has a proyect with the things that I learned on that day
