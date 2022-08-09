@@ -1,0 +1,14 @@
+shutil:
+    shutil.move(file, path) : move the file to the indicated path
+
+
+
+os:
+    os.unlink(path) : deletes a file in the indicated path
+    os.rmdir(path) : deletes an empty folder
+    os.walk(path) : show to you all the content in the path (it is a generator)
+
+
+send2trash:
+    send2trash.send2trash(file) : send to trash the indicated file in the actual path
+
