@@ -18,4 +18,6 @@ These folders are what I have done on each of the days of the python course I ha
 
   Day 8: Error management, packages, decorators, generators
 
+  Day 9: Dates, datetime, measuring time, zip, regular expressions
+
 Each day has a proyect with the things that I learned on that day
