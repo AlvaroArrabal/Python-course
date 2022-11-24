@@ -64,6 +64,12 @@ font = pygame.font.Font(".\\DAY_10\\256BYTES.ttf", 32)
 text_x = 10
 text_y = 10
 
+# Game Over
+finalFont = pygame.font.Font(".\\DAY_10\\256BYTES.ttf", 60)
+def final_text():
+    myFinalFont = finalFont.render("GAME OVER",True,(255,255,255))
+    screen.blit(myFinalFont,(280,200))
+
 # show score
 def show_score(x,y):
     text = font.render(f"Score: {score}",True,(255,255,255))
@@ -135,6 +141,13 @@ while running:
 
     # Enemy movement
     for e in range(number_enemies):
+        # Game over
+        if Enemy_pos_y[e] >500:
+            for k in range(number_enemies):
+                Enemy_pos_y[k] = 1000
+            final_text()
+            break
+
         Enemy_pos_x[e] += Enemy_pos_x_change[e]
 
         # Inside the screen - enemy
