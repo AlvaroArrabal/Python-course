@@ -1,6 +1,6 @@
 import pygame
 import random
-
+import math
 # Initialise pygame
 pygame.init()               
 
@@ -10,7 +10,7 @@ screen = pygame.display.set_mode((800, 600))        # (800,600) the size of the 
 
 # Title and icon
 
-pygame.display.set_caption("Alvaro's Game")         # Sets the title of the programme
+pygame.display.set_caption("X-Wing Attack")         # Sets the title of the programme
 
 icon = pygame.image.load(".\\DAY_10\\smiley.png")   # load the icon we want. In 32px!
 pygame.display.set_icon(icon)                       # Sets the icon of the programme
@@ -42,6 +42,9 @@ bullet_pos_x_change = 0
 bullet_pos_y_change = 1.5
 bullet_visible = False
 
+# score
+score = 0
+
 # Player function
 def player(x,y):
     screen.blit(player_icon,(x,y))
@@ -56,6 +59,13 @@ def shoot(x,y):
     bullet_visible = True
     screen.blit(bullet_icon,(x+28,y+10))
 
+# detecting collisions
+def collision_check(x_1,y_1,x_2,y_2):
+    distance = math.sqrt(math.pow(x_1 - x_2,2) + math.pow(y_1-y_2,2))
+    if distance < 27:
+        return True
+    else:
+        return False
 
 
 # Game loop
@@ -107,9 +117,7 @@ while running:
     elif Enemy_pos_x >= 736:        # 800 - 64 = 736
         Enemy_pos_x_change = -0.2
         Enemy_pos_y += Enemy_pos_y_change
-    player(player_pos_x,player_pos_y)
-    enemy(Enemy_pos_x,Enemy_pos_y)
-
+ 
     # Bullet movement
     if bullet_pos_y <= -32:
         bullet_pos_y = 500
@@ -118,7 +126,19 @@ while running:
         shoot(bullet_pos_x,bullet_pos_y)
         bullet_pos_y -= bullet_pos_y_change
 
-    
+    # Collision
+    collision = collision_check(Enemy_pos_x,Enemy_pos_y,bullet_pos_x,bullet_pos_y)
+    if collision:
+        score += 1
+        bullet_pos_y = 500
+        bullet_visible = False
+        Enemy_pos_x = random.randint(0,736)
+        Enemy_pos_y = random.randint(50,200)
+
+    player(player_pos_x,player_pos_y)
+    enemy(Enemy_pos_x,Enemy_pos_y)
+
+
     pygame.display.update()                 # update 
 
     
