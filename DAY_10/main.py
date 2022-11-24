@@ -34,6 +34,14 @@ Enemy_pos_y = random.randint(50,200)
 Enemy_pos_x_change = 0.2
 Enemy_pos_y_change = 50
 
+# bullet variables
+bullet_icon = pygame.image.load(".\\DAY_10\\bullet.png")    # 64px
+bullet_pos_x = 0
+bullet_pos_y = 500
+bullet_pos_x_change = 0
+bullet_pos_y_change = 1
+bullet_visible = False
+
 # Player function
 def player(x,y):
     screen.blit(player_icon,(x,y))
@@ -41,6 +49,14 @@ def player(x,y):
 # Enemy function
 def enemy(x,y):
     screen.blit(Enemy_icon,(x,y))
+
+# shoot function
+def shoot(x,y):
+    global bullet_visible
+    bullet_visible = True
+    screen.blit(bullet_icon,(x+28,y+10))
+
+
 
 # Game loop
 running = True
@@ -61,6 +77,8 @@ while running:
                 player_pos_change = -0.5
             if event.key == pygame.K_RIGHT:
                 player_pos_change = 0.5
+            if event.key == pygame.K_SPACE:
+                shoot(player_pos_x,bullet_pos_y)
 
         if event.type == pygame.KEYUP:      # KEYUP when the player releases the key
             if event.key == pygame.K_LEFT:
@@ -89,6 +107,12 @@ while running:
         Enemy_pos_y += Enemy_pos_y_change
     player(player_pos_x,player_pos_y)
     enemy(Enemy_pos_x,Enemy_pos_y)
+
+    # Bullet movement
+    if bullet_visible:
+        shoot(player_pos_x,bullet_pos_y)
+        bullet_pos_y -= bullet_pos_y_change
+
 
     pygame.display.update()                 # update 
 
