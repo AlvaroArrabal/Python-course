@@ -53,6 +53,14 @@ bullet_visible = False
 
 # score
 score = 0
+font = pygame.font.Font(".\\DAY_10\\256BYTES.ttf", 32)
+text_x = 10
+text_y = 10
+
+# show score
+def show_score(x,y):
+    text = font.render(f"Score: {score}",True,(255,255,255))
+    screen.blit(text,(x,y))
 
 # Player function
 def player(x,y):
@@ -147,11 +155,9 @@ while running:
         shoot(bullet_pos_x,bullet_pos_y)
         bullet_pos_y -= bullet_pos_y_change
 
-    
 
     player(player_pos_x,player_pos_y)
-    
-
+    show_score(text_x,text_y)
 
     pygame.display.update()                 # update 
 
