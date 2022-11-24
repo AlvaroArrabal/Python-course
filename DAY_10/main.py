@@ -1,6 +1,8 @@
 import pygame
 import random
 import math
+from pygame import mixer
+
 # Initialise pygame
 pygame.init()               
 
@@ -16,6 +18,11 @@ icon = pygame.image.load(".\\DAY_10\\smiley.png")   # load the icon we want. In 
 pygame.display.set_icon(icon)                       # Sets the icon of the programme
 
 background = pygame.image.load(".\\DAY_10\\background.png")
+
+# Music
+mixer.music.load(".\\DAY_10\\backGroundMusic.mp3")
+mixer.music.set_volume(0.3)
+mixer.music.play(-1)
 
 # Player variables
 player_icon = pygame.image.load(".\\DAY_10\\spacecraft.png")    # 64px
@@ -105,6 +112,8 @@ while running:
             if event.key == pygame.K_RIGHT:
                 player_pos_change = 0.5
             if event.key == pygame.K_SPACE:
+                shootEffect = mixer.Sound(".\\DAY_10\\shootEffect.mp3")
+                shootEffect.play()
                 if bullet_visible == False:
                     bullet_pos_x = player_pos_x
                     shoot(bullet_pos_x,bullet_pos_y)
@@ -138,6 +147,8 @@ while running:
         # Collision
         collision = collision_check(Enemy_pos_x[e],Enemy_pos_y[e],bullet_pos_x,bullet_pos_y)
         if collision:
+            collisionEffect = mixer.Sound(".\\DAY_10\\collisionEffect.mp3")
+            collisionEffect.play()
             score += 1
             bullet_pos_y = 500
             bullet_visible = False
