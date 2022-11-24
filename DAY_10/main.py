@@ -28,11 +28,20 @@ def player(x,y):
     screen.blit(player_icon,(x,y))
 
 # Enemy variables
-Enemy_icon = pygame.image.load(".\\DAY_10\\enemy.png")    # 64px
-Enemy_pos_x = random.randint(0,736)
-Enemy_pos_y = random.randint(50,200)
-Enemy_pos_x_change = 0.2
-Enemy_pos_y_change = 50
+Enemy_icon = []    # 64px
+Enemy_pos_x = []
+Enemy_pos_y = []
+Enemy_pos_x_change = []
+Enemy_pos_y_change = []
+number_enemies = 8
+
+for e in range(number_enemies):
+
+    Enemy_icon.append(pygame.image.load(".\\DAY_10\\enemy.png"))   # 64px
+    Enemy_pos_x.append(random.randint(0,736))
+    Enemy_pos_y.append(random.randint(50,200))
+    Enemy_pos_x_change.append(0.2)
+    Enemy_pos_y_change.append(50)
 
 # bullet variables
 bullet_icon = pygame.image.load(".\\DAY_10\\bullet.png")    # 64px
@@ -50,8 +59,8 @@ def player(x,y):
     screen.blit(player_icon,(x,y))
 
 # Enemy function
-def enemy(x,y):
-    screen.blit(Enemy_icon,(x,y))
+def enemy(x,y,ene):
+    screen.blit(Enemy_icon[ene],(x,y))
 
 # shoot function
 def shoot(x,y):
@@ -108,16 +117,28 @@ while running:
         player_pos_x = 736
 
     # Enemy movement
-    Enemy_pos_x += Enemy_pos_x_change
+    for e in range(number_enemies):
+        Enemy_pos_x[e] += Enemy_pos_x_change[e]
 
-    # Inside the screen - enemy
-    if Enemy_pos_x <= 0: 
-        Enemy_pos_x_change = 0.2
-        Enemy_pos_y += Enemy_pos_y_change
-    elif Enemy_pos_x >= 736:        # 800 - 64 = 736
-        Enemy_pos_x_change = -0.2
-        Enemy_pos_y += Enemy_pos_y_change
- 
+        # Inside the screen - enemy
+        if Enemy_pos_x[e] <= 0: 
+            Enemy_pos_x_change[e] = 0.2
+            Enemy_pos_y[e] += Enemy_pos_y_change[e]
+        elif Enemy_pos_x[e] >= 736:        # 800 - 64 = 736
+            Enemy_pos_x_change[e] = -0.2
+            Enemy_pos_y[e] += Enemy_pos_y_change[e]
+        # Collision
+        collision = collision_check(Enemy_pos_x[e],Enemy_pos_y[e],bullet_pos_x,bullet_pos_y)
+        if collision:
+            score += 1
+            bullet_pos_y = 500
+            bullet_visible = False
+            Enemy_pos_x[e] = random.randint(0,736)
+            Enemy_pos_y[e] = random.randint(50,200)
+        
+        enemy(Enemy_pos_x[e],Enemy_pos_y[e], e)
+
+
     # Bullet movement
     if bullet_pos_y <= -32:
         bullet_pos_y = 500
@@ -126,17 +147,10 @@ while running:
         shoot(bullet_pos_x,bullet_pos_y)
         bullet_pos_y -= bullet_pos_y_change
 
-    # Collision
-    collision = collision_check(Enemy_pos_x,Enemy_pos_y,bullet_pos_x,bullet_pos_y)
-    if collision:
-        score += 1
-        bullet_pos_y = 500
-        bullet_visible = False
-        Enemy_pos_x = random.randint(0,736)
-        Enemy_pos_y = random.randint(50,200)
+    
 
     player(player_pos_x,player_pos_y)
-    enemy(Enemy_pos_x,Enemy_pos_y)
+    
 
 
     pygame.display.update()                 # update 
