@@ -20,4 +20,6 @@ These folders are what I have done on each of the days of the python course I ha
 
   Day 9: Dates, datetime, measuring time, zip, regular expressions
 
+  Day 10: Making a videogame with pygame
+
 Each day has a proyect with the things that I learned on that day
