@@ -79,6 +79,8 @@ for food in foodList:
     # Food Quantity
     foodQuantity.append("")
     foodText.append("")
+    foodText[cont] =StringVar()
+    foodText[cont].set("0")
     foodQuantity[cont] = Entry(foodPanel,font=("Dosis",18,"bold"),bd=1,width=6,state=DISABLED,textvariable=foodText[cont])
     foodQuantity[cont].grid(row=cont,column=1)
 
@@ -101,6 +103,8 @@ for drinks in drinksList:
     # drinks Quantity
     drinksQuantity.append("")
     drinksText.append("")
+    drinksText[cont] =StringVar()
+    drinksText[cont].set("0")
     drinksQuantity[cont] = Entry(drinksPanel,font=("Dosis",18,"bold"),bd=1,width=6,state=DISABLED,textvariable=drinksText[cont])
     drinksQuantity[cont].grid(row=cont,column=2)
 
@@ -123,6 +127,8 @@ for desserts in dessertsList:
     # desserts Quantity
     dessertsQuantity.append("")
     dessertsText.append("")
+    dessertsText[cont] =StringVar()
+    dessertsText[cont].set("0")
     dessertsQuantity[cont] = Entry(dessertsPanel,font=("Dosis",18,"bold"),bd=1,width=6,state=DISABLED,textvariable=dessertsText[cont])
     dessertsQuantity[cont].grid(row=cont,column=3)
 
