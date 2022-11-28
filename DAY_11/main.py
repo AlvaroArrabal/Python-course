@@ -4,7 +4,7 @@ from tkinter import *
 app = Tk()
 
 # dimension of the window
-app.geometry("1020x630+0+0")
+app.geometry("1060x630+0+0")
 app.resizable(0,0) # The user cant change the dimension if the window
 
 # change the name of the window
@@ -206,6 +206,26 @@ for button in buttons:
 receiptText = Text(receiptPanel,font=("Dosis",10,"bold"),fg="black",bd=1,width=42,height=10)
 receiptText.grid(row=0,column=0)
 
+# Calculator
+screen = Entry(calculatorPanel,font=("Dosis",14,"bold"),width=31,bd=1)
+screen.grid(row=0,column=0,columnspan=4)    # Columns span: how much each column occupies
+
+calculatorButtons = ["7","8","9","+","4",'5','6','-','1','2','3','x',"Clean",'0','=','/']
+
+calculatorColumn = 0
+calculatorRow = 1
+
+for button in calculatorButtons:
+    
+    button = Button(calculatorPanel,text=button.title(),font=("Dosis",16,"bold"),fg="black",bg="azure4",bd=1,width=6)
+    button.grid(row=calculatorRow,column=calculatorColumn)
+
+    if calculatorColumn >2:
+        calculatorRow += 1
+        calculatorColumn = 0
+    else:
+        calculatorColumn +=1
+ 
 
 # The programme doesnt close
 app.mainloop() 
