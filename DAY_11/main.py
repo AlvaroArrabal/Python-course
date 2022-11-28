@@ -47,16 +47,16 @@ rightPanel = Frame(app,bd =1,relief=FLAT)
 rightPanel.pack(side=RIGHT)
 
 # Calculator panel
-calculatorPanel = Frame(app,bd =1,relief=FLAT,bg="burlywood")
-calculatorPanel.pack(side=RIGHT)
+calculatorPanel = Frame(rightPanel,bd =1,relief=FLAT,bg="burlywood")
+calculatorPanel.pack()
 
 # receipt panel
-receiptPanel = Frame(app,bd =1,relief=FLAT,bg="burlywood")
-receiptPanel.pack(side=RIGHT)
+receiptPanel = Frame(rightPanel,bd =1,relief=FLAT,bg="burlywood")
+receiptPanel.pack()
 
 # buttons panel
-buttonsPanel = Frame(app,bd =1,relief=FLAT,bg="burlywood")
-buttonsPanel.pack(side=RIGHT)
+buttonsPanel = Frame(rightPanel,bd =1,relief=FLAT,bg="burlywood")
+buttonsPanel.pack()
 
 # list of products
 foodList = ["chicken","potatoes","salmon","burger","pasta","pizza1","pizza2","pizza3"]
@@ -193,6 +193,18 @@ totalVar = StringVar()
 totalText = Entry(costPanel,font=("Dosis",14,"bold"),bd=1,width=10,state="readonly",textvariable=totalVar)
 totalText.grid(row=2,column=3, padx=35)
 
+# Buttons
+buttons = ["Total", "Receipt", "Save", "Reset"]
+columns = 0
+
+for button in buttons:
+    button = Button(buttonsPanel, text=button.title(),font=("Dosis",10,"bold"),fg="white",bg="azure4",bd=1,width=9)
+    button.grid(row=0,column=columns)
+    columns += 1
+
+# Receipt Area
+receiptText = Text(receiptPanel,font=("Dosis",10,"bold"),fg="black",bd=1,width=42,height=10)
+receiptText.grid(row=0,column=0)
 
 
 # The programme doesnt close
