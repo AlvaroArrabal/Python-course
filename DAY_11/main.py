@@ -1,6 +1,7 @@
 from tkinter import *
 import random
 import datetime
+from tkinter import filedialog, messagebox
 
 operator = ""
 
@@ -136,9 +137,45 @@ def generate_receipt():
     receiptText.insert(END,"*"*70 + "\n")
 
 
-#def save_receipt():
+def save_receipt():
+    receiptInfo = receiptText.get(1.0,END)
 
+    savedFile = filedialog.asksaveasfile(mode="w",defaultextension=".txt")
+    savedFile.write(receiptInfo)
+    savedFile.close()
 
+    messagebox.showinfo("Information","Completed!")
+
+def clean_screen():
+    receiptText.delete(0.1,END)
+
+    for i in foodText:
+        i.set("0")
+    for i in drinksText:
+        i.set("0")
+    for i in dessertsText:
+        i.set("0")
+    
+    for i in foodQuantity:
+        i.config(state=DISABLED)
+    for i in drinksQuantity:
+        i.config(state=DISABLED)
+    for i in dessertsQuantity:
+        i.config(state=DISABLED)
+
+    for i in drinksVariables:
+        i.set(0)
+    for i in foodVariables:
+        i.set(0)
+    for i in dessertsVariables:
+        i.set(0)
+
+    costFoodVar.set("")
+    costDrinksVar.set("")
+    costDessertsVar.set("")
+    subtotalVar.set("")
+    taxesVar.set("")
+    totalVar.set("")
 # Initiating tkinder
 app = Tk()
 
@@ -346,6 +383,7 @@ for button in buttons:
 createdButtons[0].config(command = calculate_total)
 createdButtons[1].config(command = generate_receipt)
 createdButtons[2].config(command = save_receipt)
+createdButtons[3].config(command = clean_screen)
 
 # Receipt Area
 receiptText = Text(receiptPanel,font=("Dosis",10,"bold"),fg="black",bd=1,width=50,height=15)
