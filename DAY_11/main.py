@@ -103,6 +103,42 @@ def generate_receipt():
     receiptText.insert(END,"Items\t\t\tNum\t\tCost\n")
     receiptText.insert(END,"-"*87 + "\n")
 
+    cont = 0
+    for i in foodText:
+        if i.get() != "0":
+            receiptText.insert(END,f"{foodList[cont]}\t\t\t{i.get()}\t\t{round(int(i.get())*foodPrices[cont],2)}\n")
+
+        cont += 1
+    
+    cont = 0
+    for i in drinksText:
+        if i.get() != "0":
+            receiptText.insert(END,f"{drinksList[cont]}\t\t\t{i.get()}\t\t{round(int(i.get())*drinksPrices[cont],2)}\n")
+
+        cont += 1
+
+    cont = 0
+    for i in dessertsText:
+        if i.get() != "0":
+            receiptText.insert(END,f"{dessertsList[cont]}\t\t\t{i.get()}\t\t{round(int(i.get())*dessertsPrices[cont],2)}\n")
+
+        cont += 1
+    receiptText.insert(END,"-"*87 + "\n")
+    receiptText.insert(END,f"Food receipt:\t\t\t\t{costFoodVar.get()}\n")
+    receiptText.insert(END,f"Drinks receipt:\t\t\t\t{costDrinksVar.get()}\n")
+    receiptText.insert(END,f"Desserts receipt:\t\t\t\t{costDessertsVar.get()}\n\n")
+    
+    receiptText.insert(END,f"Subtotal:\t\t\t\t{subtotalVar.get()}\n")
+    receiptText.insert(END,f"Taxes:\t\t\t\t{taxesVar.get()}\n")
+    receiptText.insert(END,f"Total receipt:\t\t\t\t{totalVar.get()}\n")
+    receiptText.insert(END,"*"*70 + "\n")
+    receiptText.insert(END,"\t\tHasta la vista Baby\n")
+    receiptText.insert(END,"*"*70 + "\n")
+
+
+#def save_receipt():
+
+
 # Initiating tkinder
 app = Tk()
 
@@ -309,6 +345,7 @@ for button in buttons:
 
 createdButtons[0].config(command = calculate_total)
 createdButtons[1].config(command = generate_receipt)
+createdButtons[2].config(command = save_receipt)
 
 # Receipt Area
 receiptText = Text(receiptPanel,font=("Dosis",10,"bold"),fg="black",bd=1,width=50,height=15)
