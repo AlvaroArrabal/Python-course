@@ -1,10 +1,32 @@
 from tkinter import *
 
+operator = ""
+
+def press_button(number):
+    global operator
+    operator = operator + number
+    screen.delete(0,END)            # cleans the windows
+    screen.insert(END,operator)
+
+def clean():
+    global operator
+    operator = ""
+    screen.delete(0,END)
+
+def result():
+    global operator
+    res = str(eval(operator))       # Reads the string and returns the operation inside it 
+    screen.delete(0,END)
+    screen.insert(0,res)
+    operator = ""
+
+
+    
 # Initiating tkinder
 app = Tk()
 
 # dimension of the window
-app.geometry("1060x630+0+0")
+app.geometry("1060x600+0+0")
 app.resizable(0,0) # The user cant change the dimension if the window
 
 # change the name of the window
@@ -198,19 +220,21 @@ buttons = ["Total", "Receipt", "Save", "Reset"]
 columns = 0
 
 for button in buttons:
-    button = Button(buttonsPanel, text=button.title(),font=("Dosis",10,"bold"),fg="white",bg="azure4",bd=1,width=9)
+    button = Button(buttonsPanel, text=button.title(),font=("Dosis",11,"bold"),fg="white",bg="azure4",bd=1,width=9)
     button.grid(row=0,column=columns)
     columns += 1
 
 # Receipt Area
-receiptText = Text(receiptPanel,font=("Dosis",10,"bold"),fg="black",bd=1,width=42,height=10)
+receiptText = Text(receiptPanel,font=("Dosis",10,"bold"),fg="black",bd=1,width=50,height=15)
 receiptText.grid(row=0,column=0)
 
 # Calculator
 screen = Entry(calculatorPanel,font=("Dosis",14,"bold"),width=31,bd=1)
 screen.grid(row=0,column=0,columnspan=4)    # Columns span: how much each column occupies
 
-calculatorButtons = ["7","8","9","+","4",'5','6','-','1','2','3','x',"Clean",'0','=','/']
+calculatorButtons = ["7","8","9","+","4",'5','6','-','1','2','3','x',"Reset",'0','=','/']
+
+saveButtons = []
 
 calculatorColumn = 0
 calculatorRow = 1
@@ -220,12 +244,31 @@ for button in calculatorButtons:
     button = Button(calculatorPanel,text=button.title(),font=("Dosis",16,"bold"),fg="black",bg="azure4",bd=1,width=6)
     button.grid(row=calculatorRow,column=calculatorColumn)
 
+    saveButtons.append(button)
+
     if calculatorColumn >2:
         calculatorRow += 1
         calculatorColumn = 0
     else:
         calculatorColumn +=1
- 
+
+saveButtons[0].config(command=lambda:press_button("7"))
+saveButtons[1].config(command=lambda:press_button("8"))
+saveButtons[2].config(command=lambda:press_button("9"))
+saveButtons[3].config(command=lambda:press_button("+"))
+saveButtons[4].config(command=lambda:press_button("4"))
+saveButtons[5].config(command=lambda:press_button("5"))
+saveButtons[6].config(command=lambda:press_button("6"))
+saveButtons[7].config(command=lambda:press_button("-"))
+saveButtons[8].config(command=lambda:press_button("1"))
+saveButtons[9].config(command=lambda:press_button("2"))
+saveButtons[10].config(command=lambda:press_button("3"))
+saveButtons[11].config(command=lambda:press_button("*"))
+saveButtons[12].config(command=clean)
+saveButtons[13].config(command=lambda:press_button("0"))
+saveButtons[14].config(command=result)
+saveButtons[15].config(command=lambda:press_button("/"))
+
 
 # The programme doesnt close
 app.mainloop() 
